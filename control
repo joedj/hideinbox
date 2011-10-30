@@ -1,0 +1,11 @@
+Author: joedj <hideinbox@joedj.net>
+Maintainer: joedj <hideinbox@joedj.net>
+Name: HideInbox
+Package: net.joedj.hideinbox
+Depends: firmware (>= 4.0), mobilesubstrate
+Section: Tweaks
+Version: 1.0
+Architecture: iphoneos-arm
+Description: Exclude selected accounts from the combined Mail inbox
+Tag: purpose::extension, role::enduser
+Homepage: http://github.com/joedj/hideinbox
