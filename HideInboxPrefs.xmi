@@ -26,44 +26,39 @@ static NSArray *insertSpecifier(id provider, NSMutableArray *specifiers) {
     return specifiers;
 }
 
-static NSNumber *isHidden(id provider) {
-    return [HideInboxSettings isHidden:[provider account].identifier];
-}
-
-static void setHidden(id provider, NSNumber *hidden) {
-    [HideInboxSettings setHidden:hidden forAccount:provider];
-    [[provider parentController] reloadSpecifiers];
-}
+#define SPECIFIERS - (NSArray *)specifiers { return insertSpecifier(self, %orig); }
+#define IS_HIDDEN %new - (NSNumber *)HideInbox_isHidden { return [HideInboxSettings isHidden:[self account].identifier]; }
+#define SET_HIDDEN %new - (void)HideInbox_setHidden:(NSNumber *)hidden { [HideInboxSettings setHidden:hidden forAccount:self]; [[self parentController] reloadSpecifiers]; }
 
 %group MobileMailSettings
 
 %hook AccountPSSyncController
-- (NSArray *)specifiers { return insertSpecifier(self, %orig); }
-%new - (NSNumber *)HideInbox_isHidden { return isHidden(self); }
-%new - (void)HideInbox_setHidden:(NSNumber *)hidden { setHidden(self, hidden); }
+SPECIFIERS
+IS_HIDDEN
+SET_HIDDEN
 %end
 
 %hook AccountPSDetailController
-- (NSArray *)specifiers { return insertSpecifier(self, %orig); }
-%new - (NSNumber *)HideInbox_isHidden { return isHidden(self); }
-%new - (void)HideInbox_setHidden:(NSNumber *)hidden { setHidden(self, hidden); }
+SPECIFIERS
+IS_HIDDEN
+SET_HIDDEN
 %end
 
 %end
 
 %group AppleAccountSettings
 %hook AASettingsSyncController
-- (NSArray *)specifiers { return insertSpecifier(self, %orig); }
-%new - (NSNumber *)HideInbox_isHidden { return isHidden(self); }
-%new - (void)HideInbox_setHidden:(NSNumber *)hidden { setHidden(self, hidden); }
+SPECIFIERS
+IS_HIDDEN
+SET_HIDDEN
 %end
 %end
 
 %group ActiveSyncSettings
 %hook ASSettingsSyncController
-- (NSArray *)specifiers { return insertSpecifier(self, %orig); }
-%new - (NSNumber *)HideInbox_isHidden { return isHidden(self); }
-%new - (void)HideInbox_setHidden:(NSNumber *)hidden { setHidden(self, hidden); }
+SPECIFIERS
+IS_HIDDEN
+SET_HIDDEN
 %end
 %end
 

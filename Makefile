@@ -7,7 +7,7 @@ TWEAK_NAME = HideInbox HideInboxPrefs
 HideInbox_FILES = HideInbox.xm HideInboxSettings.mm
 HideInbox_FRAMEWORKS = UIKit
 
-HideInboxPrefs_FILES = HideInboxPrefs.xm HideInboxSettings.mm
+HideInboxPrefs_FILES = HideInboxPrefs.xmi HideInboxSettings.mm
 HideInboxPrefs_PRIVATE_FRAMEWORKS = Preferences
 
 include theos/makefiles/common.mk
